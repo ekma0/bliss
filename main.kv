@@ -1,0 +1,180 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Manager>:
+    id: bliss_manager
+    transition: FadeTransition()
+    home_screen: home_screen
+    level_screen: level_screen
+    ScreenHome:
+        id: home_screen
+        name: 'home'
+        manager: bliss_manager
+    ScreenLevel:
+        id: level_screen
+        name: 'level'
+        manager: bliss_manager
+    ScreenStage:
+        id: stage_screen
+        name: 'stage'
+        manager: bliss_manager
+    ScreenPlay:
+        id: play_screen
+        name: 'name'
+        manager: bliss_manager
+
+<ScreenHome>:
+    ImageButton:
+        #on_release: root.delay_home_switch()
+        on_release: app.root.current = 'level'
+        source: 'home.jpg'
+
+
+<ScreenLevel>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: '6.jpg'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: root.width * 0.1 , root.height * 0.4
+        spacing: '30dp'
+
+        Button:
+            on_release: app.root.current = "home"
+            text: "home"
+        Button:
+            id: level_easy
+            on_release: app.root.current = "stage"
+            text: "easy"
+        Button:
+            id: level_medium
+            on_release: app.root.current = "stage"
+            text: "medium"
+        Button:
+            id: level_hard
+            on_release: app.root.current = "stage"
+            text: "hard"
+
+<StageButton@ImageButton>:
+<ScreenStage>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            StageButton:
+                id: stage_1
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '1.jpg'
+            StageButton:
+                id: stage_2
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '2.jpg'
+            StageButton:
+                id: stage_3
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '3.jpg'
+        BoxLayout:
+            orientation: 'horizontal'
+            StageButton:
+                id: stage_4
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '4.jpg'
+            StageButton:
+                id: stage_5
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '5.jpg'
+            StageButton:
+                id: stage_6
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '6.jpg'
+        BoxLayout:
+            orientation: 'horizontal'
+            StageButton:
+                id: stage_7
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '7.jpg'
+            StageButton:
+                id: stage_8
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '8.jpg'
+            StageButton:
+                id: stage_9
+                on_press: app.root.current = "play"
+                text: "Stage"
+                font_size: 24
+                source: '9.jpg'
+
+
+
+<ScreenPlay>:
+    name: "play"
+    BoxLayout:
+        orientation:'horizontal'
+        padding: root.width * 0.01, root.height * 0.01
+        spacing: '3dp'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (0.85,1)
+            spacing: '3dp'
+            CameraZone:
+                id: cam_manager
+                active_cam: active_cam
+                close_cam: close_cam
+                transition: FadeTransition()
+
+                CloseCamera:
+                    id: close_cam
+                    name: "close_cam"
+                    manager: cam_manager
+                    Image:
+                        id: Ans_0
+                        source: '2.jpg'
+                ActiveCamera:
+                    id: active_cam
+                    name: "active_cam"
+                    manager: cam_manager
+                    TryImage:
+            Image:
+                id: Ans_1
+                source: '2.jpg'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (0.15,1)
+            padding: self.width * 0.01, self.height * 0.03
+            spacing: '3dp'
+
+            Button:
+                text: "Home"
+                bold: True
+                on_release: app.root.current = "home"
+            Button:
+                text: "Level"
+                bold: True
+                on_release: app.root.current = "level"
+            Button:
+                id: play_pause
+                text: 'Play'
+                bold: True
+                on_press: root.call_cam()
+
+
+
